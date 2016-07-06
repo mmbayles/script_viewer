@@ -1,41 +1,44 @@
 ###################################################
 # About
 #
-# This script fill in gaps in a time series
+# This R script runs linear regression analysis of
+# two time serie from the CUAHSI Water Data Center
 ###################################################
 
 ###################################################
 # define metadata, resources, inputs and outputs
 
-#wps.des: id = gap_filler, title = Gap Filler Tool,
-# abstract = Fills in gaps in a time series;
+#wps.des: id = linear_regression, title = Linear Regression,
+# abstract = run linear regression of two time series;
 
-#wps.in: id = resource_id, type = string, title = Time series to process,
-# abstract = CUAHSI resource ID of the time series,
+#wps.in: id = x_resource_id, type = string, title = X axis time series resource,
+# abstract = CUAHSI resource ID of the first time series,
 # minOccurs = 1, maxOccurs = 1;
 
-#wps.in: id = fill_function, type = string, title = Type of filler function to use,
-# abstract = Method to fill the gap in the time series either linear or spline,
+#wps.in: id = y_resource_id, type = string, title = Y axis time series resource,
+# abstract = CUAHSI resource ID of the second time series,
 # minOccurs = 1, maxOccurs = 1;
 
-#wps.out: id = output, type = text, title = gap filled time series values,
-# abstract = plot values of the gap filled time series;
+#wps.out: id = output, type = text, title = regression scatter plot values,
+# abstract = regression scatter plot values with the regression coefficients;
 
 ######################################
-# CUAHSI Gap Filler Tool          #
+# R Correlation Plot Test!           #
 ######################################
-library(WaterML)
-library(xts)
 library(httr)
+library(WaterML)
 library(jsonlite)
+
 #wps.off;
-resource_id = "cuahsi-wdc-2016-04-20-57260727"
-fill_function = 'linear'
+x_resource_id = "cuahsi-wdc-2016-06-28-76101213"
+y_resource_id = "cuahsi-wdc-2016-06-28-76101213"
 #wps.on;
+  
+cuahsi_url = 'http://qa-webclient-solr.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'
+url1 = paste0(cuahsi_url, x_resource_id, "/zip")
+url2 = paste0(cuahsi_url, y_resource_id, "/zip")
 
-cuahsi_url = "http://qa-webclient-solr.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/"
-url1 = paste0(cuahsi_url, resource_id, "/zip")
-
+# unzip, download and parse the first file
 temp1 = tempfile()
 tempdir1 = tempdir()
 temp_unzip = tempfile()
@@ -47,34 +50,40 @@ unlink(temp1)
 unlink(waterml1)
 unlink(tempdir1)
 
-ts <- xts(values1$DataValue, order.by = values1$time)
-#convert to weekly
-plot(ts)
-# date<- time(ts)
-date1 = as.double(values1$DateTimeUTC)
-time_conversion = -1*values1$UTCOffset*60*60+date1
+# unzip, download and parse the second file
+temp2 = tempfile()
+tempdir2 = tempdir()
+temp_unzip2 = tempfile()
+GET(url2, write_disk(temp2, overwrite=TRUE))
+waterml2 = unzip(temp2, exdir=tempdir2)
+values2 = GetValues(waterml2)
+lines(DataValue~time, data=values2, type="l", col="red")
 
-final <- xts(values1$DataValue, order.by = values1$time)
-plot(final)
+# merge the two time series
+merged = merge(values1, values2, by="time")
 
-if(fill_function == "linear"){
-  final_ts<-na.approx(final,na.rm =FALSE)
-}
-if(fill_function == "spline"){
-  final_ts <- na.spline(final)
-}
+# make regression model
+m = lm(DataValue.y~DataValue.x, data=merged)
 
-plot(final_ts)
+# get the intercept, slope and Rsquared from the model
+intercept = m$coefficients[1]
+slope = m$coefficients[2]
+rsquared <- round(summary(m)$r.squared, digits=4)
 
-time_conversion = time_conversion*1000
-output1 = data.frame(date=time_conversion,values = final_ts,row.names = NULL)
+# make scatterplot with regression line
+#wps.off;
+plot(DataValue.y~DataValue.x, data=merged)
+abline(m, col="red")
+#wps.on;
+
+# write output data in JSON format
+output1 = data.frame(x=merged$DataValue.x, y=merged$DataValue.y)
 
 # remove 'no data' values from the output data
-
 output_valid = output1[complete.cases(output1),]
 
 # name of output data file
 output = "output_data.json"
-output_json = toJSON(list(data = setNames(output_valid, NULL)))
+output_json = toJSON(list(stats=data.frame(rsquared=rsquared, intercept=intercept, slope=slope), 
+                          data=setNames(output_valid, NULL)))
 write(output_json, output)
-

@@ -38,6 +38,7 @@ def unzip_waterml(request, res_id,src):
     print datetime.now()
     # this is where we'll unzip the waterML file to
     temp_dir = get_workspace()
+    script_type = None
     # waterml_url = ''
 
     # get the URL of the remote zipped WaterML resource
@@ -51,8 +52,8 @@ def unzip_waterml(request, res_id,src):
     # elif 'hydroshare' in src:
     #     url_zip = 'https://www.hydroshare.org/hsapi/_internal/'+res_id+'/download-refts-bag/'
     elif 'hydroshare_script' in src:
-        url_zip =  'https://www.hydroshare.org/django_irods/download/bags/'+res_id+'.zip'
-        print url_zip
+        url_zip =  'http://www.hydroshare.org/hsapi/resource/'+res_id
+
         # data = urllib2.urlopen(target_url) # it's a file like object and works just like a file
         # for line in data: # files are iterable
         #     print line
@@ -73,16 +74,21 @@ def unzip_waterml(request, res_id,src):
                 for file in file_list:
                     if 'hydroshare_script' in src:
                         if '.r' in file:
+                            print file
+                            script_type = 'r'
                             file_data = z.read(file)
                             file_temp_name = temp_dir + '/id/' + res_id + '.txt'
                             file_temp = open(file_temp_name, 'wb')
                             file_temp.write(file_data)
                             file_temp.close()
-                            # base_url = request.build_absolute_uri()
-                            # if "?" in base_url:
-                            #     base_url = base_url.split("?")[0]
-                            # waterml_url = base_url + "temp_waterml/cuahsi/id/" + res_id + '.xml'
-
+                        elif '.py' in file:
+                            script_type = 'py'
+                            file_data = z.read(file)
+                            file_temp_name = temp_dir + '/id/' + res_id + '.txt'
+                            file_temp = open(file_temp_name, 'wb')
+                            file_temp.write(file_data)
+                            file_temp.close()
+                        print script_type
 
                     else:
                         file_data = z.read(file)
@@ -122,10 +128,13 @@ def unzip_waterml(request, res_id,src):
     # finally we return the waterml_url
     print "File created"
     print datetime.now()
-    return waterml_url
-def Original_Checker(file_path):
+    return script_type
+
+
+def Original_Checker(file_path,script):
     f = open(file_path, 'r')
     response = f.read()
     # response.encode(encoding='UTF-8',errors='strict')
 
-    return {'script':response}
+    return {'script':response,
+            'script_type':script}

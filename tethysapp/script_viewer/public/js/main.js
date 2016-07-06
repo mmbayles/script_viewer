@@ -49,6 +49,9 @@ function add_script(res_id, src) {
     $.ajax({
         url: data_url,
         success: function (json) {
+            script_type = json.script_type
+
+
             //console.log(json)
             //decode = encodeURI(json)
             //console.log(decode)
@@ -57,9 +60,10 @@ function add_script(res_id, src) {
             //$('#editor_div').html(json)
             var editor = ace.edit("editor_div");
             editor.setTheme("ace/theme/chaos");
-            editor.getSession().setMode("ace/mode/r");
+            editor.getSession().setMode("ace/mode/"+script_type);
             editor.$blockScrolling = Infinity
             editor.getSession().setValue(json.script)
+            console.log(editor)
             finishloading();
         }
     })
