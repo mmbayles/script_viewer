@@ -1,0 +1,84 @@
+{% extends "script_viewer/base.html" %}
+{% load staticfiles %}
+{% block app_content %}
+
+<!--<iframe class = 'test' id = 'iframe' width='100%' height='300' src='http://r-fiddle.org/#/query/embed?code=' allowfullscreen='allowfullscreen' frameborder='0'></iframe>-->
+<!--<div id = 'r-con'style = 'white-space: pre-wrap;'>-->
+   <!--<pre id = 'r-script' class="rfiddle-interactive" style="height:700px">-->
+<!--</pre>-->
+<!--</div>-->
+
+<div id = 'editor_div'>
+
+</div>
+
+<!-- Modal  -->
+<!--<button id = 'hello'  type="button" class="btn btn-primary">Primary</button>-->
+<!--<button id = 'hydroshare'  type="button" class="btn btn-primary">Upload to hydroshare</button>-->
+<div class="modal fade" id="welcome-popup" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Welcome to the CUAHSI time series viewer!</h4>
+            </div>
+            <div class="modal-body">
+                <div id="welcome-info">
+                    <p>
+                        <!--This app should be launched from the HydroClient page on <a href='http://bcc-hiswebclient.azurewebsites.net'>CUAHSI</a>-->
+                        This app should be launched from the HydroClient page on <a href='http://data.cuahsi.org/'>CUAHSI</a>
+                    </p>
+                    <ol>
+                        <h6>1. Go to the CUAHSI HydroClient page</h6>
+                        <p>Use the map to search for the site of interest</p>
+                        <h6>2. Select time series</h6>
+                        <p>Select the time series from the search results</p>
+                        <h6>3. Launch the time series viewer</h6>
+                        <p>In your workspace, select the time series for visualization, choose Time series viewer, and launch tool.</p>
+                        <!--<a class="btn btn-default" href='http://bcc-hiswebclient.azurewebsites.net'>Go to CUAHSI HydroClient website</a>-->
+                         <a class="btn btn-default" href='http://data.cuahsi.org/'>Go to CUAHSI HydroClient website</a>
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                 <div id="byu-logo-container">
+                    <img src="{% static 'script_viewer/images/byu-medallion.png' %}"/><span><i>Developed at the BYU Hydroinformatics Lab</i></span>
+                </div>
+                <button type="button" class="btn btn-default" id="close-popup" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<div id = loading>
+    <!--http://cssload.net/-->
+    <!--<img src="/static/timeseries_viewer/images/main-loading-anim.gif" />-->
+   <div class="cssload-loader">
+	<div class="cssload-dot"></div>
+	<div class="cssload-dot"></div>
+	<div class="cssload-dot"></div>
+	<div class="cssload-dot"></div>
+	<div class="cssload-dot"></div>
+</div>
+
+</div>
+
+{% endblock %}
+{% block scripts %}
+
+
+<!--<script src="{% static 'r_script_viewer/js/theme-twilight.js' %}"></script>-->
+<!--<script src="{% static 'r_script_viewer/js/mode-r.js' %}"></script>-->
+<!--<script src="{% static 'r_script_viewer/js/ace.js' %}"></script>-->
+
+<script src="{% static 'script_viewer/js/src-min/ace.js'%}"type="text/javascript" charset="utf-8"></script>
+
+
+
+
+
+<!--<script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
+  {{ block.super }}
+
+{% endblock %}
