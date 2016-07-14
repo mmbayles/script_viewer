@@ -1,10 +1,55 @@
-#editor_div {
+.editor {
     display: block;
     margin: auto;
     width: 100%;
     height: 600px;
     border: 1px solid #888;
 }
+
+/* Style the list */
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 600px;
+    border: 1px solid #888;
+}
+
 
 /*makes the scroll bar appear */
 #app-content-wrapper {
@@ -34,9 +79,9 @@
 /*#app-header .tethys-app-header .app-title-wrapper .app-title{*/
 /*padding: 0px 0px 20px 500px !important;*/
 /*}*/
-#app-header .toggle-nav {
-    display: none !important;
-}
+/*#app-header .toggle-nav {*/
+    /*display: none !important;*/
+/*}*/
 
 /*#app-header .tethys-app-header .app-title-wrapper .app-title{*/
 /*padding: 20px 0px 20px 500px;*/
@@ -45,25 +90,25 @@
 /*{*/
 /*padding-top: 60px !important;*/
 /*}*/
-#app-content-wrapper #app-content #app-navigation {
-    left: -350px;
-    width: 0px;
-    height: 100%;
-}
+/*#app-content-wrapper #app-content #app-navigation {*/
+    /*left: -350px;*/
+    /*width: 0px;*/
+    /*height: 100%;*/
+/*}*/
 
-#app-content-wrapper.show-nav #app-content {
-    padding-right: 0px;
-    -webkit-transform: translateX(0px);
-    -moz-transform: translateX(0px);
-    -ms-transform: translateX(0px);
-    -o-transform: translateX(0px);
-    transform: translateX(0px);
-    -webkit-transform: translate3d(0px, 0, 0);
-    -moz-transform: translate3d(0px, 0, 0);
-    -ms-transform: translate3d(0px, 0, 0);
-    -o-transform: translate3d(0px, 0, 0);
-    transform: translate3d(0px, 0, 0);
-}
+/*#app-content-wrapper.show-nav #app-content {*/
+    /*padding-right: 0px;*/
+    /*-webkit-transform: translateX(0px);*/
+    /*-moz-transform: translateX(0px);*/
+    /*-ms-transform: translateX(0px);*/
+    /*-o-transform: translateX(0px);*/
+    /*transform: translateX(0px);*/
+    /*-webkit-transform: translate3d(0px, 0, 0);*/
+    /*-moz-transform: translate3d(0px, 0, 0);*/
+    /*-ms-transform: translate3d(0px, 0, 0);*/
+    /*-o-transform: translate3d(0px, 0, 0);*/
+    /*transform: translate3d(0px, 0, 0);*/
+/*}*/
 
 /*#app-header .tethys-app-header .icon-wrapper img{*/
 /*height: 48px !important;*/

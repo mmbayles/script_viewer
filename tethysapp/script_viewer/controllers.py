@@ -10,6 +10,12 @@ import requests
 from datetime import datetime
 from django.conf import settings
 from xml.sax._exceptions import SAXParseException
+from hs_restclient import HydroShare, HydroShareAuthOAuth2, HydroShareNotAuthorized, HydroShareNotFound
+from suds.transport import TransportError
+from suds.client import Client
+from django.conf import settings
+import shutil
+
 
 @login_required()
 def home(request):
@@ -22,38 +28,62 @@ def home(request):
 
 def chart_data(request, res_id, src):
     print res_id
-    script = 'r'
-    # checks if we already have an unzipped xml file
-    file_path = utilities.waterml_file_path(res_id)
-    # if we don't have the xml file, downloads and unzips it
-    if not os.path.exists(file_path):
-        waterml = utilities.unzip_waterml(request, res_id,src)
-
-
-
-
-    url_zip ='http://www.hydroshare.org/hsapi/resource/'+res_id
-    r = requests.get(url_zip, verify=False)
-    z = zipfile.ZipFile(StringIO.StringIO(r.content))
-    file_list = z.namelist()
-
-    for  file in file_list:
-        if '.py' in file:
-            script = 'python'
-        elif '.r' in file:
-            script = 'r'
-        elif '.m' in file:
-            script = 'matlab'
-    # returns an error message if the unzip_waterml failed
-    if not os.path.exists(file_path):
-        data_for_chart = {'status': 'Resource file not found'}
-    else:
-        # parses the WaterML to a chart data object
-        data_for_chart = utilities.Original_Checker(file_path,script)
-
-    print script
+    data_for_chart ={}
     print "JSON Reponse"
     print datetime.now()
+    # Downloading all files types that work with app from hydroshare
+    hs = getOAuthHS(request)
+    file_path = utilities.get_workspace()+'/id'
+    hs.getResource(res_id, destination=file_path, unzip=True)
+
+    root_dir = file_path +'/'+res_id
+    data_dir = root_dir +'/'+res_id+'/data/contents/'
+    # f = open(data_dir)
+    # print f.read()
+    for subdir, dirs,files in os.walk(data_dir):
+        for file in files:
+            if '.r' in file or'.py' in file or '.m' in file or '.txt' in file:
+                data_file = data_dir+file
+                with open(data_file,'r') as f:
+                    # print f.read()
+                    data = f.read()
+                    f.close()
+                    data_for_chart.update({str(file):data})
+
+    # data_for_chart = {'bjo':'hello'}
     return JsonResponse(data_for_chart)
     # resp = HttpResponse(data_for_chart, content_type="text/plain; charset=utf-8")
     # return resp
+def getOAuthHS(request):
+    hs_instance_name = "www"
+    client_id = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_KEY", None)
+    client_secret = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_SECRET", None)
+    # this line will throw out from django.core.exceptions.ObjectDoesNotExist if current user is not signed in via HydroShare OAuth
+    token = request.user.social_auth.get(provider='hydroshare').extra_data['token_dict']
+    hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)
+    auth = HydroShareAuthOAuth2(client_id, client_secret, token=token)
+    hs = HydroShare(auth=auth, hostname=hs_hostname)
+    return hs
+
+def save_file(request,res_id,file_name,src):
+    script = request.POST['script']
+    print script
+
+    file_path = utilities.get_workspace()+'/id'
+    root_dir = file_path +'/'+res_id
+    data_dir = root_dir +'/'+res_id+'/data/contents/'+file_name
+
+    print data_dir
+    # os.remove(data_dir)
+    with open(data_dir,'wb') as f:
+        f.write(script)
+    hs = getOAuthHS(request)
+    hs.deleteResourceFile(res_id,file_name)
+    print res_id
+    # raw_input('PAUSED')
+    hs.addResourceFile(res_id, data_dir)
+    # shutil.rmtree(root_dir)
+
+
+    file = {"File Uploaded":file_name}
+    return JsonResponse(file)

@@ -1,20 +1,26 @@
 {% extends "script_viewer/base.html" %}
 {% load staticfiles %}
+{% block app_navigation_items %}
+<h6>Editor Options</h6>
+<select id = 'theme'>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="opel">Opel</option>
+  <option value="audi">Audi</option>
+</select>
+
+
+{% endblock %}
+
 {% block app_content %}
-
-<!--<iframe class = 'test' id = 'iframe' width='100%' height='300' src='http://r-fiddle.org/#/query/embed?code=' allowfullscreen='allowfullscreen' frameborder='0'></iframe>-->
-<!--<div id = 'r-con'style = 'white-space: pre-wrap;'>-->
-   <!--<pre id = 'r-script' class="rfiddle-interactive" style="height:700px">-->
-<!--</pre>-->
-<!--</div>-->
-
-<div id = 'editor_div'>
-
+<div id = 'tabs'>
+    <ul id = 'list' class="tab"></ul>
 </div>
-
+<div id = 'content_tab'></div>
+<div id = 'save'></div>
 <!-- Modal  -->
 <!--<button id = 'hello'  type="button" class="btn btn-primary">Primary</button>-->
-<!--<button id = 'hydroshare'  type="button" class="btn btn-primary">Upload to hydroshare</button>-->
+
 <div class="modal fade" id="welcome-popup" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -73,8 +79,8 @@
 <!--<script src="{% static 'r_script_viewer/js/ace.js' %}"></script>-->
 
 <script src="{% static 'script_viewer/js/src-min/ace.js'%}"type="text/javascript" charset="utf-8"></script>
-
-
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
 

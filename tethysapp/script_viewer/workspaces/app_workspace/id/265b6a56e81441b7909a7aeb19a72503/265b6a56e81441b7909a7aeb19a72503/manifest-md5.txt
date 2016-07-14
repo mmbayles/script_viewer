@@ -1,0 +1,5 @@
+data/resourcemap.xml   sha2:/+sZ0ita08+XI/QOXLCDyv8ec/59yraSof6JNv5sOr4=
+data/resourcemetadata.xml   sha2:mra4xp0b56oKDjF9cjo+y6CGKeKbRxqnYr5ppZz+bos=
+data/contents/controllers.py   sha2:UtauVQWLkd6+itWe3C7gy5jPU+P44Xq18n0Ja0Pxn6I=
+data/contents/GapFiller2.r   sha2:WgvaZMQHXhpJV4DFEKm8m+IqyfzaxjDqMyVYUjffxeo=
+data/contents/regression_analysis_01.r   sha2:ojWD8kUQq9lWcNd90hzuvmKmUqC2jtdKq7UYBxSpozw=
