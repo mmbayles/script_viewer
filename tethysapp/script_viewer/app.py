@@ -29,8 +29,11 @@ class ScriptViewer(TethysAppBase):
                            url='chart_data/{src}/{res_id}',
                            controller='script_viewer.controllers.chart_data'),
                      UrlMap(name='save_file',
-                           url='save_file/{src}/{res_id}/{file_name}',
+                           url='save_file/{src}/{res_id}/{file_name}/{save_type}',
                            controller='script_viewer.controllers.save_file'),
+                    UrlMap(name='delete_file',
+                           url='delete_file/{src}/{res_id}/{file_name}',
+                           controller='script_viewer.controllers.delete_file'),
 
         )
         return url_maps

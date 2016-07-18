@@ -10,6 +10,7 @@ var popupDiv = $('#welcome-popup');
 $('document').ready(function () {
     var res_id = find_query_parameter("res_id");
     var src = find_query_parameter("src");
+    $('#save').hide()
     if (res_id == null) {
         $('#loading').hide()
         if (document.referrer == "https://apps.hydroshare.org/apps/") {
@@ -47,7 +48,6 @@ function add_script(res_id, src) {
                  tab_name = Object.keys(json)[counter]
                  id = 'editor_div' + counter
                  //console.log(json[item])
-
                  ext_name = tab_name.split('.').pop()
                  console.log(ext_name)
                  if(ext_name =='py'){
@@ -69,14 +69,11 @@ function add_script(res_id, src) {
                  $('#content_tab').append('<div  id="' + id + '" class="tabcontent">' +
                      '</div>')
                  counter = counter +1
-
              }
-
             $('#0').click()
             for(item in json)
             {
                 mode = ext[counter1]
-                console.log (mode)
                 var editor = ace.edit("editor_div"+counter1);
                 editor.setTheme("ace/theme/chaos");
                 editor.getSession().setMode("ace/mode/"+mode);
@@ -89,10 +86,20 @@ function add_script(res_id, src) {
     })
 }
 
-function openCity(evt, cityName,file_name) {
+function openCity(evt, cityName,file_name,save_type) {
     // Declare all variables
+    console.log(save_type)
     $("#hydroshare").remove();
-    $('#save').append('<button id = "hydroshare"  type="button" name ="'+file_name+'" class="btn btn-primary" onclick= "save_file(\''+file_name+'\',\''+cityName+'\')">Save to HydroShare</button>')
+    $("#hydroshare_new").remove();
+    $("#delete").remove();
+    $('#save').append('<button id = "hydroshare"  type="button" name ="'+file_name+'" class="btn btn-primary" onclick=' +
+        ' "save_file(\''+file_name+'\',\''+cityName+'\',\'save\')">Save to HydroShare</button><p></p>')
+
+    $('#save').append('<button id = "hydroshare_new"  type="button" name ="'+file_name+'" class="btn btn-primary" onclick' +
+        '= "save_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')">Save to HydroShare as a new file</button><p></p>')
+
+    $('#save').append('<button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger" onclick' +
+        '= "delete_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')">Delete File </button>')
     var i, tabcontent, tablinks;
     console.log(file_name)
     // Get all elements with class="tabcontent" and hide them
@@ -109,46 +116,105 @@ function openCity(evt, cityName,file_name) {
     document.getElementById(cityName).style.display = "block";
     //evt.currentTarget.className += " active";
 }
-function save_file(file_name,div_name){
-    console.log(file_name)
-    $('#loading').show()
+function delete_file(file_name,div_name,save_type){
+     $('#loading').show()
     $('#tabs').toggle()
     $('#content_tab').toggle()
-    $('#hydroshare').hide()
+    $('#save').hide()
+
     var res_id = find_query_parameter("res_id");
     var src = find_query_parameter("src");
-    var editor = ace.edit(div_name);
-    var code = editor.getValue();
-    console.log(code)
-    var csrf_token = getCookie('csrftoken');
-    data_url = base_url + 'script-viewer/save_file/' + src + '/' + res_id + '/'+file_name +'/';
-    $.ajax({
-            type:"POST",
-            headers:{'X-CSRFToken':csrf_token},
-            dataType: 'json',
-            data:{'script':code},
-            url: data_url,
-            success: function (json) {
-                console.log(json)
-                finishloading()
-            }
+
+        data_url = base_url + 'script-viewer/delete_file/' + src + '/' + res_id + '/'+file_name +'/'
+        $.ajax({
+                url: data_url,
+                success: function (json) {
+                    console.log(json)
+                    add_script(res_id,src)
+                    $('#list').html("")
+                    $('#content_tab').html("")
+
+                }
+        })
+}
+function save_file(file_name,div_name,save_type)//fires when either save button is triggered
+{
+    console.log(file_name)
+    if (save_type == 'save_as'){
+        $("#resource_name").attr("name", div_name);
+        var popupDiv = $('#save_as');
+        popupDiv.modal('show');
+
     }
-    )}
+    else{
+        upload_file(file_name,div_name,save_type)
+    }
+}
+
+function save_as() //saving file with a new file name
+{
+    file_name = $('#File_name').val()
+    div_name =$('#resource_name').attr('name')
+    console.log(div_name)
+    var popupDiv = $('#save_as');
+    popupDiv.modal('hide');
+    upload_file(file_name,div_name,'save_as')
+
+}
+function upload_file(file_name,div_name,save_type){
+        $('#loading').show()
+        $('#tabs').toggle()
+        $('#content_tab').toggle()
+        $('#save').hide()
+
+        var res_id = find_query_parameter("res_id");
+        var src = find_query_parameter("src");
+        var editor = ace.edit(div_name);
+        var code = editor.getValue();
+        var csrf_token = getCookie('csrftoken');
+        data_url = base_url + 'script-viewer/save_file/' + src + '/' + res_id + '/'+file_name +'/'+save_type+'/';
+        $.ajax({
+                type:"POST",
+                headers:{'X-CSRFToken':csrf_token},
+                dataType: 'json',
+                data:{'script':code},
+                url: data_url,
+                success: function (json) {
+                    console.log(json)
+                    add_script(res_id,src)
+                    $('#list').html("")
+                    $('#content_tab').html("")
+
+                }
+        })
+}
 function finishloading(callback) {
     $('#editor_div').show()
     $('#loading').hide()
      $('#tabs').show()
     $('#content_tab').show()
-    $('#hydroshare').show()
+    $('#save').show()
 }
 $("#theme").click( function() {
-   var obj = document.getElementById("theme");
-   x= obj.options[obj.selectedIndex].text;
-    console.log("selected")
-    console.log(x)
+    var obj = document.getElementById("theme");
+    x= obj.options[obj.selectedIndex].value;
+    for(i = 0; i< counter; i++){
+        var editor = ace.edit("editor_div"+i);
+       editor.setTheme("ace/theme/"+x);
+    }
 });
-
-
+$("#font").click( function() {
+    console.log(counter)
+    var obj = document.getElementById("font");
+    x= obj.options[obj.selectedIndex].value;
+    console.log(x)
+    for(i = 0; i< counter; i++){
+        var editor = ace.edit("editor_div"+i);
+        editor.setOptions({
+        fontSize: x
+        });
+    }
+});
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
