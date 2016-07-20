@@ -1,0 +1,91 @@
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:hsterms="http://hydroshare.org/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs1="http://www.w3.org/2001/01/rdf-schema#">
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/ac0c1fcdbec54d60ba930fb7f615e10f">
+    <dc:title>Data Viewer Test 2</dc:title>
+    <dc:type rdf:resource="http://www.hydroshare.org/terms/RefTimeSeriesResource"/>
+    <dc:description>
+      <rdf:Description>
+        <dcterms:abstract>Hello world</dcterms:abstract>
+      </rdf:Description>
+    </dc:description>
+    <dc:creator>
+      <rdf:Description rdf:about="http://www.hydroshare.org/user/113/">
+        <hsterms:name>Matthew Bayles</hsterms:name>
+        <hsterms:creatorOrder>1</hsterms:creatorOrder>
+        <hsterms:email>mmbayles@gmail.com</hsterms:email>
+      </rdf:Description>
+    </dc:creator>
+    <dc:coverage>
+      <dcterms:point>
+        <rdf:value>east=17.8397217; north=49.665554; units=WGS 84 EPSG:4326</rdf:value>
+      </dcterms:point>
+    </dc:coverage>
+    <dc:coverage>
+      <dcterms:period>
+        <rdf:value>start=2015-07-01T00:00:00; end=2015-07-09T23:00:00; scheme=W3C-DTF</rdf:value>
+      </dcterms:period>
+    </dc:coverage>
+    <dc:date>
+      <dcterms:created>
+        <rdf:value>2016-04-29T15:23:15.846954+00:00</rdf:value>
+      </dcterms:created>
+    </dc:date>
+    <dc:date>
+      <dcterms:modified>
+        <rdf:value>2016-04-29T16:26:07.013460+00:00</rdf:value>
+      </dcterms:modified>
+    </dc:date>
+    <dc:identifier>
+      <rdf:Description>
+        <hsterms:hydroShareIdentifier>http://www.hydroshare.org/resource/ac0c1fcdbec54d60ba930fb7f615e10f</hsterms:hydroShareIdentifier>
+      </rdf:Description>
+    </dc:identifier>
+    <dc:language>eng</dc:language>
+    <dc:rights>
+      <rdf:Description>
+        <hsterms:rightsStatement>This resource is shared under the Creative Commons Attribution CC BY.</hsterms:rightsStatement>
+        <hsterms:URL rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+      </rdf:Description>
+    </dc:rights>
+    <dc:subject>Data Viewer</dc:subject>
+    <hsterms:ReferenceURL>
+      <rdf:Description>
+        <hsterms:value>http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&amp;variable=CHMI-H:TEPLOTA&amp;startDate=2015-07-01&amp;endDate=2015-07-10&amp;authToken=</hsterms:value>
+        <hsterms:type>rest</hsterms:type>
+      </rdf:Description>
+    </hsterms:ReferenceURL>
+    <hsterms:Site>
+      <rdf:Description>
+        <hsterms:name>Odry</hsterms:name>
+        <hsterms:code>140</hsterms:code>
+        <hsterms:latitude>49.665554</hsterms:latitude>
+        <hsterms:longitude>17.839722</hsterms:longitude>
+      </rdf:Description>
+    </hsterms:Site>
+    <hsterms:Variable>
+      <rdf:Description>
+        <hsterms:name>Temperature</hsterms:name>
+        <hsterms:code>TEPLOTA</hsterms:code>
+      </rdf:Description>
+    </hsterms:Variable>
+    <hsterms:Method>
+      <rdf:Description>
+        <hsterms:code>3</hsterms:code>
+        <hsterms:description>Temperature sensor in 2 meters on automated meteorological station</hsterms:description>
+      </rdf:Description>
+    </hsterms:Method>
+    <hsterms:QualityControlLevel>
+      <rdf:Description>
+        <hsterms:definition>Raw Data</hsterms:definition>
+      </rdf:Description>
+    </hsterms:QualityControlLevel>
+    <hsterms:DataSource>
+      <rdf:Description>
+        <hsterms:code>1</hsterms:code>
+      </rdf:Description>
+    </hsterms:DataSource>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/terms/RefTimeSeriesResource">
+    <rdfs1:label>HIS Referenced Time Series</rdfs1:label>
+    <rdfs1:isDefinedBy>http://www.hydroshare.org/terms</rdfs1:isDefinedBy>
+  </rdf:Description>
+</rdf:RDF>

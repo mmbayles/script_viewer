@@ -23,10 +23,7 @@ def home(request):
     Controller for the app home page.
     """
     context = {}
-
     return render(request, 'script_viewer/home.html', context)
-
-
 def chart_data(request, res_id, src):
     data_for_chart = {}
     print "JSON Reponse"
@@ -42,13 +39,13 @@ def chart_data(request, res_id, src):
     # print f.read()
     for subdir, dirs, files in os.walk(data_dir):
         for file in files:
-            # if '.r' in file or'.py' in file or '.m' in file or '.txt' in file:
-            data_file = data_dir + file
-            with open(data_file, 'r') as f:
-                # print f.read()
-                data = f.read()
-                f.close()
-                data_for_chart.update({str(file): data})
+            if '.r' in file or'.py' in file or '.m' in file or '.txt' in file or '.xml' in file:
+                data_file = data_dir + file
+                with open(data_file, 'r') as f:
+                    # print f.read()
+                    data = f.read()
+                    f.close()
+                    data_for_chart.update({str(file): data})
 
     # data_for_chart = {'bjo':'hello'}
     return JsonResponse(data_for_chart)

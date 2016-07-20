@@ -61,6 +61,9 @@ function add_script(res_id, src) {
                  else if(ext_name =='m'){
                      ext.push('matlab')
                  }
+                 else if(ext_name =='xml'){
+                     ext.push('xml')
+                 }
                  else {
                      ext.push('text')
                  }
@@ -92,14 +95,14 @@ function openCity(evt, cityName,file_name,save_type) {
     $("#hydroshare").remove();
     $("#hydroshare_new").remove();
     $("#delete").remove();
-    $('#save').append('<button id = "hydroshare"  type="button" name ="'+file_name+'" class="btn btn-primary" onclick=' +
-        ' "save_file(\''+file_name+'\',\''+cityName+'\',\'save\')">Save to HydroShare</button><p></p>')
+    $('#save').append('<button id = "hydroshare"  type="button" name ="'+file_name+'" class="btn btn-success btn-block" onclick=' +
+        ' "save_file(\''+file_name+'\',\''+cityName+'\',\'save\')" data-toggle="tooltip"data-placement="right" title="Save selected file to HydroShare">Save</button><p></p>')
 
-    $('#save').append('<button id = "hydroshare_new"  type="button" name ="'+file_name+'" class="btn btn-primary" onclick' +
-        '= "save_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')">Save to HydroShare as a new file</button><p></p>')
+    $('#save').append('<button id = "hydroshare_new"  type="button" name ="'+file_name+'" class="btn btn-success btn-block" onclick' +
+        '= "save_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')"data-toggle="tooltip"data-placement="right" title="Save selected file to HydroShare with a new file name">Save As</button><p></p>')
 
-    $('#save').append('<button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger" onclick' +
-        '= "delete_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')">Delete File </button>')
+    $('#save').append('<button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger btn-block" onclick' +
+        '= "delete_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')"data-toggle="tooltip"data-placement="right" title="Delete selected file from HydroShare">Delete</button>')
     var i, tabcontent, tablinks;
     console.log(file_name)
     // Get all elements with class="tabcontent" and hide them
@@ -133,7 +136,6 @@ function delete_file(file_name,div_name,save_type){
                     add_script(res_id,src)
                     $('#list').html("")
                     $('#content_tab').html("")
-
                 }
         })
 }
@@ -155,10 +157,13 @@ function save_as() //saving file with a new file name
 {
     file_name = $('#File_name').val()
     div_name =$('#resource_name').attr('name')
-    console.log(div_name)
+    var obj = document.getElementById("ext");
+    x= obj.options[obj.selectedIndex].value;
+    file_name = file_name+x
+
     var popupDiv = $('#save_as');
     popupDiv.modal('hide');
-    upload_file(file_name,div_name,'save_as')
+    //upload_file(file_name,div_name,'save_as')
 
 }
 function upload_file(file_name,div_name,save_type){
@@ -214,6 +219,20 @@ $("#font").click( function() {
         fontSize: x
         });
     }
+});$("#split").click( function() {
+    console.log(counter)
+    var obj = document.getElementById("font");
+    x= obj.options[obj.selectedIndex].value;
+    console.log(x)
+    for(i = 0; i< counter; i++){
+        var editor = ace.edit("editor_div"+i);
+        EditSession.setWrapLimitRange(10, 20)
+        editor.setOptions({
+        fontSize: x
+        });
+    }
+    editor.setSplit
+    console.log(editor.getMode())
 });
 function getCookie(name) {
     var cookieValue = null;

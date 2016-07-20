@@ -1,3 +1,14 @@
+#inputs{
+    border-width: 1px;
+   border-bottom-width:1px;
+    border-bottom-style: solid;
+}
+hr {
+    border: 0;
+    width: 96%;
+    color: #FFFF00;
+    height: 1px;
+}
 .editor {
     display: block;
     margin: auto;
@@ -133,6 +144,22 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 #byu-logo-container span {
+    position: relative;
+    top: 25px;
+    margin-left: 10px;
+}#byu-logo-container2 {
+    float: left;
+    position: absolute;
+    bottom: 8px;
+}
+
+#byu-logo-container2 img {
+    float: left;
+    height: 50px;
+    width: 50px;
+}
+
+#byu-logo-container2 span {
     position: relative;
     top: 25px;
     margin-left: 10px;

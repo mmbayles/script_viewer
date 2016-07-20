@@ -1,37 +1,56 @@
 {% extends "script_viewer/base.html" %}
 {% load staticfiles %}
 {% block app_navigation_items %}
-<div id = 'save'>
-<h4>Editor Options</h4>
-Theme:
-<select id = 'theme'>
-  <option value="chaos">Chaos</option>
-  <option value="chrome">Chrome</option>
-  <option value="github">GitHub</option>
-  <option value="terminal">Terminal</option>
-  <option value="cobalt">Cobalt</option>
-</select>
-<p></p>
-Font:
-<select id = 'font'>
-  <option value="10pt">10 px</option>
-  <option value="11pt">11 px</option>
-  <option value="12pt">12 px</option>
-  <option value="14pt">14 px</option>
-  <option value="16pt">16 px</option>
-  <option value="26pt">26 px</option>
-  <option value="28pt">28 px</option>
-</select>
-<p></p>
+<div id='save'>
+    <div id='inputs'>
+        <h4>Editor Options</h4>
+        Theme:
+        <select id='theme'>
+            <option value="chaos">Chaos</option>
+            <option value="chrome">Chrome</option>
+            <option value="cobalt">Cobalt</option>
+            <option value="github">GitHub</option>
+            <option value="terminal">Terminal</option>
+
+        </select>
+
+        <p></p>
+        Font:
+        <select id='font'>
+            <option value="10pt">10 px</option>
+            <option value="11pt">11 px</option>
+            <option value="12pt">12 px</option>
+            <option value="14pt">14 px</option>
+            <option value="16pt">16 px</option>
+            <option value="26pt">26 px</option>
+            <option value="28pt">28 px</option>
+        </select>
+
+        <p></p>
+        <!--Split:-->
+        <!--<select id='split'>-->
+            <!--<option value="10pt">10 px</option>-->
+            <!--<option value="11pt">11 px</option>-->
+            <!--<option value="12pt">12 px</option>-->
+            <!--<option value="14pt">14 px</option>-->
+            <!--<option value="16pt">16 px</option>-->
+            <!--<option value="26pt">26 px</option>-->
+            <!--<option value="28pt">28 px</option>-->
+        <!--</select>-->
+
+        <!--<p></p>-->
+    </div>
+    <p></p>
+
 </div>
 <hr>
 {% endblock %}
 
 {% block app_content %}
-<div id = 'tabs'>
-    <ul id = 'list' class="tab"></ul>
+<div id='tabs'>
+    <ul id='list' class="tab"></ul>
 </div>
-<div id = 'content_tab'></div>
+<div id='content_tab'></div>
 
 <div class="modal fade" id="save_as" role="dialog">
     <div class="modal-dialog">
@@ -42,20 +61,22 @@ Font:
             </div>
             <div class="modal-body">
                 <div id="hello2">
-                <div class="form-group">
-                  <label  for="usr">File name:</label>
-                  <input type="text" id = "File_name" class="form-control" id="usr">
-                    <div id = 'resource_name'></div>
-                    Extension:
-                    <select id = 'ext'>
-                      <option value="chaos">Chaos</option>
-                      <option value="chrome">Chrome</option>
-                      <option value="github">GitHub</option>
-                      <option value="terminal">Terminal</option>
-                      <option value="cobalt">Cobalt</option>
-                    </select>
-                  <button class="btn btn-danger" id="change_unit" onclick ="save_as()">Save</button>
-                </div>
+                    <div class="form-group">
+                        <label for="usr">File name:</label>
+                        <input type="text" id="File_name" class="form-control" id="usr">
+
+                        <div id='resource_name'></div>
+                        Extension:
+                        <select id='ext'>
+                            <option value=".py">.py</option>
+                            <option value=".r">.r</option>
+                            <option value=".m">.m</option>
+                            <!--<option value=".txt">.txt</option>-->
+                        </select>
+
+                        <p></p>
+                        <button class="btn btn-primary" id="change_unit" onclick="save_as()">Save</button>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -68,52 +89,87 @@ Font:
 <!-- Modal  -->
 <!--<button id = 'hello'  type="button" class="btn btn-primary">Primary</button>-->
 
+<div class="modal fade" id="instructions" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Welcome to the Script Viewer</h4>
+            </div>
+            <div class="modal-body">
+                <div id="welcome-info2">
+                    <p>Instructions</p>
+                    <ol>
+
+                        <p>All files that automatically displayed</p>
+
+                        <p>Click the hamburger button in the top left to display more options</p>
+
+                        <p>Select the Script Viewer from the available list of webb apps</p>
+                        <!--<a class="btn btn-default" href='http://bcc-hiswebclient.azurewebsites.net'>Go to CUAHSI HydroClient website</a>-->
+
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="byu-logo-container2">
+                    <img src="{% static 'script_viewer/images/byu-medallion.png' %}"/><span><i>Developed at the BYU
+                    Hydroinformatics Lab</i></span>
+                </div>
+                <button type="button" class="btn btn-default" id="close-popup2" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 <div class="modal fade" id="welcome-popup" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Welcome to the CUAHSI time series viewer!</h4>
+                <h4 class="modal-title">Welcome to the Script Viewer</h4>
             </div>
             <div class="modal-body">
                 <div id="welcome-info">
                     <p>
                         <!--This app should be launched from the HydroClient page on <a href='http://bcc-hiswebclient.azurewebsites.net'>CUAHSI</a>-->
-                        This app should be launched from the HydroClient page on <a href='http://data.cuahsi.org/'>CUAHSI</a>
+                        This app should be launched from the HydroShare page on <a href='https://www.hydroshare.org/'>HydroShare</a>
                     </p>
                     <ol>
-                        <h6>1. Go to the CUAHSI HydroClient page</h6>
-                        <p>Use the map to search for the site of interest</p>
-                        <h6>2. Select time series</h6>
-                        <p>Select the time series from the search results</p>
-                        <h6>3. Launch the time series viewer</h6>
-                        <p>In your workspace, select the time series for visualization, choose Time series viewer, and launch tool.</p>
+                        <h6>1. Go to the HydroShare page</h6>
+
+                        <p>Search for the resource of interest</p>
+                        <h6>2. Select the desired resource</h6>
+
+                        <p>Select the deired resource </p>
+                        <h6>3. Launch the Script Viewer</h6>
+
+                        <p>Select the Script Viewer from the available list of webb apps</p>
                         <!--<a class="btn btn-default" href='http://bcc-hiswebclient.azurewebsites.net'>Go to CUAHSI HydroClient website</a>-->
-                         <a class="btn btn-default" href='http://data.cuahsi.org/'>Go to CUAHSI HydroClient website</a>
+                        <a class="btn btn-default" href='https://www.hydroshare.org/'>Go to HydroShare website</a>
                     </ol>
                 </div>
             </div>
             <div class="modal-footer">
-                 <div id="byu-logo-container">
-                    <img src="{% static 'script_viewer/images/byu-medallion.png' %}"/><span><i>Developed at the BYU Hydroinformatics Lab</i></span>
+                <div id="byu-logo-container">
+                    <img src="{% static 'script_viewer/images/byu-medallion.png' %}"/><span><i>Developed at the BYU
+                    Hydroinformatics Lab</i></span>
                 </div>
                 <button type="button" class="btn btn-default" id="close-popup" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-<!-- End Modal -->
-
-<div id = loading>
+<div id=loading>
     <!--http://cssload.net/-->
     <!--<img src="/static/timeseries_viewer/images/main-loading-anim.gif" />-->
-   <div class="cssload-loader">
-	<div class="cssload-dot"></div>
-	<div class="cssload-dot"></div>
-	<div class="cssload-dot"></div>
-	<div class="cssload-dot"></div>
-	<div class="cssload-dot"></div>
-</div>
+    <div class="cssload-loader">
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+    </div>
 
 </div>
 
@@ -125,13 +181,12 @@ Font:
 <!--<script src="{% static 'r_script_viewer/js/mode-r.js' %}"></script>-->
 <!--<script src="{% static 'r_script_viewer/js/ace.js' %}"></script>-->
 
-<script src="{% static 'script_viewer/js/src-min/ace.js'%}"type="text/javascript" charset="utf-8"></script>
+<script src="{% static 'script_viewer/js/src-min/ace.js'%}" type="text/javascript" charset="utf-8"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
-
 <!--<script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
-  {{ block.super }}
+{{ block.super }}
 
 {% endblock %}
