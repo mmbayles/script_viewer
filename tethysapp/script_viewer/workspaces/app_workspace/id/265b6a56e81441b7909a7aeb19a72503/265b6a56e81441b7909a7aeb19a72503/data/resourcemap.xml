@@ -8,15 +8,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs1="http://www.w3.org/2001/01/rdf-schema#"
 >
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/Controller.py">
-    <dc:format>text/x-python</dc:format>
-    <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.openarchives.org/ore/terms/ResourceMap">
-    <rdfs1:label>ResourceMap</rdfs1:label>
     <rdfs1:isDefinedBy>http://www.openarchives.org/ore/terms/</rdfs1:isDefinedBy>
+    <rdfs1:label>ResourceMap</rdfs1:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/GapFiller2.r">
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/regression_analysis_01.r">
     <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
     <dc:format>application/r</dc:format>
   </rdf:Description>
@@ -24,42 +20,46 @@
     <foaf:mbox>foresite@googlegroups.com</foaf:mbox>
     <foaf:name>Foresite Toolkit (Python)</foaf:name>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml">
-    <ore:describes rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation"/>
-    <dc:identifier>265b6a56e81441b7909a7aeb19a72503</dc:identifier>
-    <dc:creator rdf:resource="http://foresite-toolkit.googlecode.com/#pythonAgent"/>
-    <dcterms:created>2016-07-21T15:59:53Z</dcterms:created>
-    <dc:format>application/rdf+xml</dc:format>
-    <dcterms:modified>2016-07-21T15:59:53Z</dcterms:modified>
-    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/ResourceMap"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/regression_analysis_01.r">
-    <dc:format>application/r</dc:format>
-    <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation">
-        <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/GapFiller2.r"/>
-    <dc:title>test R script</dc:title>
-    <ore:isDescribedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml</ore:isDescribedBy>
-    <citoterms:isDocumentedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemetadata.xml</citoterms:isDocumentedBy>
-    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/regression_analysis_01.r"/>
-    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/ScriptResource"/>
-    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/Controller.py"/>
-    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemetadata.xml"/>
-    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemetadata.xml">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>application/rdf+xml</dc:format>
     <citoterms:documents>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</citoterms:documents>
     <dc:title>Dublin Core science metadata document describing the HydroShare resource</dc:title>
-    <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
-    <dc:format>application/rdf+xml</dc:format>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.openarchives.org/ore/terms/Aggregation">
     <rdfs1:isDefinedBy>http://www.openarchives.org/ore/terms/</rdfs1:isDefinedBy>
     <rdfs1:label>Aggregation</rdfs1:label>
   </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml">
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/ResourceMap"/>
+    <dcterms:created>2016-07-21T16:11:53Z</dcterms:created>
+    <dc:format>application/rdf+xml</dc:format>
+    <dc:creator rdf:resource="http://foresite-toolkit.googlecode.com/#pythonAgent"/>
+    <dc:identifier>265b6a56e81441b7909a7aeb19a72503</dc:identifier>
+    <dcterms:modified>2016-07-21T16:11:53Z</dcterms:modified>
+    <ore:describes rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation">
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/Controller.py"/>
+    <citoterms:isDocumentedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemetadata.xml</citoterms:isDocumentedBy>
+        <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemetadata.xml"/>
+    <rdf:type rdf:resource="http://www.openarchives.org/ore/terms/Aggregation"/>
+    <dcterms:type rdf:resource="http://www.hydroshare.org/terms/ScriptResource"/>
+    <dc:title>test R script</dc:title>
+    <ore:isDescribedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml</ore:isDescribedBy>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/GapFiller2.r"/>
+    <ore:aggregates rdf:resource="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/regression_analysis_01.r"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/Controller.py">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>text/x-python</dc:format>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/contents/GapFiller2.r">
+    <ore:isAggregatedBy>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503/data/resourcemap.xml#aggregation</ore:isAggregatedBy>
+    <dc:format>application/r</dc:format>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.hydroshare.org/terms/ScriptResource">
-    <rdfs1:isDefinedBy>http://www.hydroshare.org/terms</rdfs1:isDefinedBy>
     <rdfs1:label>Script Resource</rdfs1:label>
+    <rdfs1:isDefinedBy>http://www.hydroshare.org/terms</rdfs1:isDefinedBy>
   </rdf:Description>
 </rdf:RDF>

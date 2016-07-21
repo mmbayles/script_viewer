@@ -54,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utilities.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/script_viewer/utilities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6451613">
-              <caret line="77" column="45" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -66,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tethysapp/script_viewer/templates/script_viewer/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-72.333336">
-              <caret line="171" column="10" selection-start-line="171" selection-start-column="10" selection-end-line="171" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.6979866">
+              <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,9 +103,9 @@
         <option value="$PROJECT_DIR$/tethysapp/script_viewer/templates/script_viewer/base.html" />
         <option value="$PROJECT_DIR$/tethysapp/script_viewer/app.py" />
         <option value="$PROJECT_DIR$/tethysapp/script_viewer/public/css/main.css" />
-        <option value="$PROJECT_DIR$/tethysapp/script_viewer/templates/script_viewer/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/script_viewer/public/js/main.js" />
         <option value="$PROJECT_DIR$/tethysapp/script_viewer/controllers.py" />
+        <option value="$PROJECT_DIR$/tethysapp/script_viewer/templates/script_viewer/home.html" />
       </list>
     </option>
   </component>
@@ -711,14 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/script_viewer/templates/script_viewer/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-72.333336">
-          <caret line="171" column="10" selection-start-line="171" selection-start-column="10" selection-end-line="171" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/script_viewer/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.571428">
@@ -739,11 +731,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/script_viewer/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6451613">
-          <caret line="77" column="45" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/script_viewer/templates/script_viewer/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6979866">
+          <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
