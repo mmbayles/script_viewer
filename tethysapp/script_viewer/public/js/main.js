@@ -25,7 +25,6 @@ $('document').ready(function () {
         $('#loading').show()
         add_script(res_id, src);
     }
-
     document.title = 'Script Viewer';
 });
 
@@ -49,11 +48,11 @@ function add_script(res_id, src) {
                  id = 'editor_div' + counter
                  //console.log(json[item])
                  ext_name = tab_name.split('.').pop()
-                 console.log(ext_name)
+
                  if(ext_name =='py'){
 
                      ext.push('python')
-                     console.log(ext)
+
                  }
                  else if(ext_name =='r'){
                      ext.push('r')
@@ -91,7 +90,7 @@ function add_script(res_id, src) {
 
 function openCity(evt, cityName,file_name,save_type) {
     // Declare all variables
-    console.log(save_type)
+
     $("#hydroshare").remove();
     $("#hydroshare_new").remove();
     $("#delete").remove();
@@ -104,7 +103,7 @@ function openCity(evt, cityName,file_name,save_type) {
     $('#save').append('<button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger btn-block" onclick' +
         '= "delete_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')"data-toggle="tooltip"data-placement="right" title="Delete selected file from HydroShare">Delete</button>')
     var i, tabcontent, tablinks;
-    console.log(file_name)
+
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -120,19 +119,16 @@ function openCity(evt, cityName,file_name,save_type) {
     //evt.currentTarget.className += " active";
 }
 function delete_file(file_name,div_name,save_type){
-     $('#loading').show()
+    $('#loading').show()
     $('#tabs').toggle()
     $('#content_tab').toggle()
     $('#save').hide()
-
     var res_id = find_query_parameter("res_id");
     var src = find_query_parameter("src");
-
         data_url = base_url + 'script-viewer/delete_file/' + src + '/' + res_id + '/'+file_name +'/'
         $.ajax({
                 url: data_url,
                 success: function (json) {
-                    console.log(json)
                     add_script(res_id,src)
                     $('#list').html("")
                     $('#content_tab').html("")
@@ -141,12 +137,10 @@ function delete_file(file_name,div_name,save_type){
 }
 function save_file(file_name,div_name,save_type)//fires when either save button is triggered
 {
-    console.log(file_name)
     if (save_type == 'save_as'){
         $("#resource_name").attr("name", div_name);
         var popupDiv = $('#save_as');
         popupDiv.modal('show');
-
     }
     else{
         upload_file(file_name,div_name,save_type)
@@ -163,7 +157,7 @@ function save_as() //saving file with a new file name
 
     var popupDiv = $('#save_as');
     popupDiv.modal('hide');
-    //upload_file(file_name,div_name,'save_as')
+    upload_file(file_name,div_name,'save_as')
 
 }
 function upload_file(file_name,div_name,save_type){
@@ -185,7 +179,6 @@ function upload_file(file_name,div_name,save_type){
                 data:{'script':code},
                 url: data_url,
                 success: function (json) {
-                    console.log(json)
                     add_script(res_id,src)
                     $('#list').html("")
                     $('#content_tab').html("")
@@ -209,10 +202,10 @@ $("#theme").click( function() {
     }
 });
 $("#font").click( function() {
-    console.log(counter)
+
     var obj = document.getElementById("font");
     x= obj.options[obj.selectedIndex].value;
-    console.log(x)
+
     for(i = 0; i< counter; i++){
         var editor = ace.edit("editor_div"+i);
         editor.setOptions({
@@ -220,10 +213,10 @@ $("#font").click( function() {
         });
     }
 });$("#split").click( function() {
-    console.log(counter)
+
     var obj = document.getElementById("font");
     x= obj.options[obj.selectedIndex].value;
-    console.log(x)
+
     for(i = 0; i< counter; i++){
         var editor = ace.edit("editor_div"+i);
         EditSession.setWrapLimitRange(10, 20)
@@ -232,7 +225,7 @@ $("#font").click( function() {
         });
     }
     editor.setSplit
-    console.log(editor.getMode())
+
 });
 function getCookie(name) {
     var cookieValue = null;

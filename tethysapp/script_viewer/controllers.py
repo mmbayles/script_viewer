@@ -62,18 +62,18 @@ def getOAuthHS(request):
     hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)
     auth = HydroShareAuthOAuth2(client_id, client_secret, token=token)
     hs = HydroShare(auth=auth, hostname=hs_hostname)
+
     return hs
 
 
 def save_file(request, res_id, file_name, src, save_type):
     script = request.POST['script']
-    print script
 
     file_path = utilities.get_workspace() + '/id'
     root_dir = file_path + '/' + res_id
     data_dir = root_dir + '/' + res_id + '/data/contents/' + file_name
 
-    print data_dir
+
     if save_type == 'save':
         # os.remove(data_dir)
         with open(data_dir, 'wb') as f:
