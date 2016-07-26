@@ -1,34 +1,33 @@
 <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:hsterms="http://hydroshare.org/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs1="http://www.w3.org/2001/01/rdf-schema#">
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503">
-    <dc:title>test R script</dc:title>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/4955887e38de495290757795a4724975">
+    <dc:title>script_test</dc:title>
     <dc:type rdf:resource="http://www.hydroshare.org/terms/ScriptResource"/>
     <dc:description>
       <rdf:Description>
-        <dcterms:abstract>Test file for the R Script Viewer. </dcterms:abstract>
+        <dcterms:abstract>Testing of script viewer</dcterms:abstract>
       </rdf:Description>
     </dc:description>
     <dc:creator>
-      <rdf:Description rdf:about="http://www.hydroshare.org/user/113/">
-        <hsterms:name>Matthew Bayles</hsterms:name>
+      <rdf:Description rdf:about="http://www.hydroshare.org/user/575/">
+        <hsterms:name>test test</hsterms:name>
         <hsterms:creatorOrder>1</hsterms:creatorOrder>
-        <hsterms:email>mmbayles@gmail.com</hsterms:email>
+        <hsterms:email>kalsis16@gmail.com</hsterms:email>
       </rdf:Description>
     </dc:creator>
     <dc:date>
       <dcterms:created>
-        <rdf:value>2016-06-30T17:08:44.239536+00:00</rdf:value>
+        <rdf:value>2016-07-25T16:50:36.496911+00:00</rdf:value>
       </dcterms:created>
     </dc:date>
     <dc:date>
       <dcterms:modified>
-        <rdf:value>2016-07-25T18:40:53.661714+00:00</rdf:value>
+        <rdf:value>2016-07-26T17:11:17.651273+00:00</rdf:value>
       </dcterms:modified>
     </dc:date>
-    <dc:format>application/r</dc:format>
-    <dc:format>text/x-python</dc:format>
+    <dc:format>application/R</dc:format>
     <dc:identifier>
       <rdf:Description>
-        <hsterms:hydroShareIdentifier>http://www.hydroshare.org/resource/265b6a56e81441b7909a7aeb19a72503</hsterms:hydroShareIdentifier>
+        <hsterms:hydroShareIdentifier>http://www.hydroshare.org/resource/4955887e38de495290757795a4724975</hsterms:hydroShareIdentifier>
       </rdf:Description>
     </dc:identifier>
     <dc:language>eng</dc:language>
@@ -38,9 +37,8 @@
         <hsterms:URL rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
       </rdf:Description>
     </dc:rights>
-    <dc:subject>R Script Viewer</dc:subject>
-    <dc:subject>Script</dc:subject>
-    <hsterms:scriptLanguage>R</hsterms:scriptLanguage>
+    <dc:subject>Viewer</dc:subject>
+    <hsterms:scriptLanguage>Python</hsterms:scriptLanguage>
     <hsterms:languageVersion>1.0</hsterms:languageVersion>
     <hsterms:scriptVersion>1.0</hsterms:scriptVersion>
     <hsterms:scriptDependencies>1.0</hsterms:scriptDependencies>

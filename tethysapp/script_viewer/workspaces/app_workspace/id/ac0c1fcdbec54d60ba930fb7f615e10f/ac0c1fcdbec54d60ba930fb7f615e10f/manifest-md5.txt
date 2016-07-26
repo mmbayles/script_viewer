@@ -1,2 +1,0 @@
-data/resourcemap.xml   sha2:mSejuSICI65YW/4p7lChyoxWxgQrfphj+0KUMIpi10A=
-data/resourcemetadata.xml   sha2:riGn/eIqFnLorXSwQykkvmyZbayoQYRKGXWukbI8DTY=

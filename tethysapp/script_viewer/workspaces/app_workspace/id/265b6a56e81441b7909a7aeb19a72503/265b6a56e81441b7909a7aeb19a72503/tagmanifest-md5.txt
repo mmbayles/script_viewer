@@ -1,2 +1,2 @@
 bagit.txt    sha2:Ez3OHK73/FVE2BV5EmVWmpM+xliGCCH9/4wVe1YdDTk=
-manifest-md5.txt    sha2:linSYJKhSkg6tY5NWFaiVZpIf+O1r1xAFEiUAlskECA=
+manifest-md5.txt    sha2:6hICBE4djxrEMq0Y2z5Lqy3fM7yHsRUUYEnDFuX420g=

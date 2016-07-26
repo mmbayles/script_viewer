@@ -15,73 +15,56 @@ from suds.transport import TransportError
 from suds.client import Client
 from django.conf import settings
 import shutil
-from django.views.decorators.cache import never_cache
 
 
 @login_required()
-@never_cache
 def home(request):
     """
 
     Controller for the app home page.
     """
+
+
     context = {}
     return render(request, 'script_viewer/home.html', context)
 def chart_data(request, res_id, src):
     data_for_chart = {}
-    error = False
     is_owner = False
     print "JSON Reponse"
     print datetime.now()
-    print "update"
     # Downloading all files types that work with app from hydroshare
-
+    hs = getOAuthHS(request)
     file_path = utilities.get_workspace() + '/id'
-    try:
-        hs = getOAuthHS(request)
-        hs.getResource(res_id, destination=file_path, unzip=True)
-        root_dir = file_path + '/' + res_id
+    hs.getResource(res_id, destination=file_path, unzip=True)
 
-        data_dir = root_dir + '/' + res_id + '/data/contents/'
-        # f = open(data_dir)
-        # print f.read()
-        for subdir, dirs, files in os.walk(data_dir):
-            for file in files:
-                # if '.r' in file or '.R' in file or'.py' in file or '.m' in file or '.txt' in file or '.xml' in file:
-                    data_file = data_dir + file
-                    with open(data_file, 'r') as f:
-                        # print f.read()
-                        data = f.read()
-                        # print data
-                        f.close()
-                        data_for_chart.update({str(file): data})
+    root_dir = file_path + '/' + res_id
+    data_dir = root_dir + '/' + res_id + '/data/contents/'
+    # f = open(data_dir)
+    # print f.read()
+    for subdir, dirs, files in os.walk(data_dir):
+        for file in files:
+            if '.r' in file or'.py' in file or '.m' in file or '.txt' in file or '.xml' in file:
+                data_file = data_dir + file
+                with open(data_file, 'r') as f:
+                    # print f.read()
+                    data = f.read()
+                    f.close()
+                    data_for_chart.update({str(file): data})
 
-        # data_for_chart = {'bjo':'hello'}
-        user =  hs.getUserInfo()
+    # data_for_chart = {'bjo':'hello'}
+    user =  hs.getUserInfo()
+    print user
+    user1 = user['username']
+    print user
+    resource = hs.getResourceList(owner = user1)
+    for  res in resource:
+        id = res["resource_id"]
+        print id
+        if(res_id ==res["resource_id"]):
+            print is_owner
+            is_owner = True
 
-        user1 = user['username']
-        # resource = hs.getResourceList(user ='editor')
-        resource = hs.getResourceList(owner = user1)
-        for  res in resource:
-            # print res
-            id = res["resource_id"]
-            # print id
-            if(res_id ==res["resource_id"]):
-                is_owner = True
-    except Exception as inst:
-        data_for_chart = 'You are not authorized to access this resource'
-        owner = False
-        error = True
-        print 'start'
-        print(type(inst))
-        print(inst.args)
-        try:
-            data_for_chart = str(inst)
-        except:
-            data_for_chart = "There was an error loading data for resource"+res_id
-        print "end"
-
-    return JsonResponse({"data":data_for_chart,"owner":is_owner,"error":error})
+    return JsonResponse({"data":data_for_chart,"owner":is_owner})
     # resp = HttpResponse(data_for_chart, content_type="text/plain; charset=utf-8")
     # return resp
 
@@ -90,7 +73,6 @@ def getOAuthHS(request):
     hs_instance_name = "www"
     client_id = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_KEY", None)
     client_secret = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_SECRET", None)
-
     # this line will throw out from django.core.exceptions.ObjectDoesNotExist if current user is not signed in via HydroShare OAuth
     token = request.user.social_auth.get(provider='hydroshare').extra_data['token_dict']
     hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)

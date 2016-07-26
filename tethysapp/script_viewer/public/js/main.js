@@ -6,6 +6,11 @@ function find_query_parameter(name) {
     var results = regex.exec(url);
     return results == null ? null : results[1];
 }
+function show_error( error_message) {
+    hide()
+    console.log(error_message);
+    $('#error-message').text(error_message);
+}
 var popupDiv = $('#welcome-popup');
 $('document').ready(function () {
     var res_id = find_query_parameter("res_id");
@@ -39,69 +44,97 @@ function add_script(res_id, src) {
     $.ajax({
         url: data_url,
         success: function (json) {
-            script_type = json.script_type
-            counter =0
-            counter1 =0
-            var size = Object.keys(json).length;
-             for(item in json) {
-                 tab_name = Object.keys(json)[counter]
-                 id = 'editor_div' + counter
-                 //console.log(json[item])
-                 ext_name = tab_name.split('.').pop()
+            console.log(json.error)
 
-                 if(ext_name =='py'){
+            error = json.error
+            if (error == true){
 
-                     ext.push('python')
-
-                 }
-                 else if(ext_name =='r'){
-                     ext.push('r')
-                 }
-                 else if(ext_name =='m'){
-                     ext.push('matlab')
-                 }
-                 else if(ext_name =='xml'){
-                     ext.push('xml')
-                 }
-                 else {
-                     ext.push('text')
-                 }
-                 list_string = '<li><a href="#" id="'+counter+'" class="tablinks"  onclick= "openCity(event,\'' + id + '\',\''+tab_name+'\' )">' + tab_name + '</a></li>'
-                 $('#list').append(list_string)
-                 $('#content_tab').append('<div  id="' + id + '" class="tabcontent">' +
-                     '</div>')
-                 counter = counter +1
-             }
-            $('#0').click()
-            for(item in json)
-            {
-                mode = ext[counter1]
-                var editor = ace.edit("editor_div"+counter1);
-                editor.setTheme("ace/theme/chaos");
-                editor.getSession().setMode("ace/mode/"+mode);
-                editor.$blockScrolling = Infinity
-                editor.getSession().setValue(json[item])
-                counter1 = counter1 +1
+                show_error(json.data)
             }
-            finishloading();
+            else
+            {
+                console.log('no error')
+                owner = json.owner
+                script_type = json.script_type
+                counter = 0
+                counter1 = 0
+                var size = Object.keys(json.data).length;
+                for (item in json.data) {
+                    tab_name = Object.keys(json.data)[counter]
+                    id = 'editor_div' + counter
+                    //console.log(json[item])
+                    ext_name = tab_name.split('.').pop()
+
+                    if (ext_name == 'py') {
+                        ext.push('python')
+                    }
+                    else if (ext_name == 'r' || ext_name =='R') {
+                        ext.push('r')
+                    }
+                    else if (ext_name == 'm') {
+                        ext.push('matlab')
+                    }
+                    else if (ext_name == 'xml') {
+                        ext.push('xml')
+                    }
+                    else if(ext_name == 'json'){
+                        ext.push('json')
+                    }
+                    else {
+                        ext.push('text')
+                    }
+                    list_string = '<li><a href="#" id="' + counter + '" class="tablinks"  onclick= "openCity(event,\'' + id + '\',\'' + tab_name + '\',\'' + owner + '\')">' + tab_name + '</a></li>'
+                    $('#list').append(list_string)
+                    $('#content_tab').append('<div  id="' + id + '" class="tabcontent">' +
+                        '</div>')
+                    counter = counter + 1
+                }
+                $('#0').click()
+                for (item in json.data) {
+                    mode = ext[counter1]
+                    var editor = ace.edit("editor_div" + counter1);
+                    if(owner ==false){
+                        editor.setReadOnly(true)
+                        console.log("read only")
+                    }
+
+                    editor.setTheme("ace/theme/chaos");
+                    editor.getSession().setMode("ace/mode/" + mode);
+                    editor.$blockScrolling = Infinity
+
+                    editor.getSession().setValue(json.data[item])
+                    counter1 = counter1 + 1
+                }
+                finishloading();
+            }
         }
     })
 }
 
-function openCity(evt, cityName,file_name,save_type) {
+function openCity(evt, cityName,file_name,owner) {
     // Declare all variables
+    console.log(owner)
 
     $("#hydroshare").remove();
     $("#hydroshare_new").remove();
     $("#delete").remove();
+    $("#disable").remove();
+if(owner =='true'){
     $('#save').append('<button id = "hydroshare"  type="button" name ="'+file_name+'" class="btn btn-success btn-block" onclick=' +
         ' "save_file(\''+file_name+'\',\''+cityName+'\',\'save\')" data-toggle="tooltip"data-placement="right" title="Save selected file to HydroShare">Save</button><p></p>')
 
     $('#save').append('<button id = "hydroshare_new"  type="button" name ="'+file_name+'" class="btn btn-success btn-block" onclick' +
         '= "save_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')"data-toggle="tooltip"data-placement="right" title="Save selected file to HydroShare with a new file name">Save As</button><p></p>')
 
-    $('#save').append('<button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger btn-block" onclick' +
+         $('#save').append('<button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger btn-block" onclick' +
         '= "delete_file(\''+file_name+'\',\''+cityName+'\',\'save_as\')"data-toggle="tooltip"data-placement="right" title="Delete selected file from HydroShare">Delete</button>')
+    }
+    else{
+         //$('#save').append('<div id = "disable" class="tooltip-wrapper" data-toggle="tooltip"data-placement="right" title="Only the owner of the resource may delete files"> <button id = "delete"  type="button" name ="'+file_name+'" class="btn btn-danger btn-block" '+
+         //'data-toggle="tooltip"data-placement="right" title="Only the owner may delete files" disabled>Delete</button></div>')
+
+    }
+
     var i, tabcontent, tablinks;
 
     // Get all elements with class="tabcontent" and hide them
@@ -132,7 +165,10 @@ function delete_file(file_name,div_name,save_type){
                     add_script(res_id,src)
                     $('#list').html("")
                     $('#content_tab').html("")
-                }
+                },
+                error: function () {
+                show_error("Error loading time series from " + res_id);
+        }
         })
 }
 function save_file(file_name,div_name,save_type)//fires when either save button is triggered
@@ -183,7 +219,10 @@ function upload_file(file_name,div_name,save_type){
                     $('#list').html("")
                     $('#content_tab').html("")
 
-                }
+                },
+                error: function () {
+                show_error("Error loading time series from " + res_id);
+        }
         })
 }
 function finishloading(callback) {
@@ -192,6 +231,13 @@ function finishloading(callback) {
      $('#tabs').show()
     $('#content_tab').show()
     $('#save').show()
+}
+function hide(){
+    $('#editor_div').hide()
+    $('#loading').hide()
+     $('#tabs').hide()
+    $('#content_tab').hide()
+    $('#save').hide()
 }
 $("#theme").click( function() {
     var obj = document.getElementById("theme");
