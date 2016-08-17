@@ -92,6 +92,7 @@ function add_script(res_id, src) {
                 $('#0').click()
                 for (item in json.data) {
                     mode = ext[counter1]
+                    
                     var editor = ace.edit("editor_div" + counter1);
                     if(owner ==false){
                         editor.setReadOnly(true)

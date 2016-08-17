@@ -37,28 +37,37 @@ def chart_data(request, res_id, src):
     # Downloading all files types that work with app from hydroshare
 
     file_path = utilities.get_workspace() + '/id'
+    root_dir = file_path + '/' + res_id
+    try:
+
+        shutil.rmtree(root_dir)
+    except:
+        nothing =None
     try:
         hs = getOAuthHS(request)
         hs.getResource(res_id, destination=file_path, unzip=True)
-        root_dir = file_path + '/' + res_id
-
         data_dir = root_dir + '/' + res_id + '/data/contents/'
         # f = open(data_dir)
         # print f.read()
         for subdir, dirs, files in os.walk(data_dir):
             for file in files:
                 # if '.r' in file or '.R' in file or'.py' in file or '.m' in file or '.txt' in file or '.xml' in file:
+
                     data_file = data_dir + file
                     with open(data_file, 'r') as f:
                         # print f.read()
                         data = f.read()
                         # print data
                         f.close()
+                        print data
+                        try:
+                            data= data.decode('latin-1')
+                        except:
+                            data = data
                         data_for_chart.update({str(file): data})
 
         # data_for_chart = {'bjo':'hello'}
         user =  hs.getUserInfo()
-
         user1 = user['username']
         # resource = hs.getResourceList(user ='editor')
         resource = hs.getResourceList(owner = user1)
@@ -81,7 +90,11 @@ def chart_data(request, res_id, src):
             data_for_chart = "There was an error loading data for resource"+res_id
         print "end"
 
+
     return JsonResponse({"data":data_for_chart,"owner":is_owner,"error":error})
+
+
+        # return JsonResponse({"data":data_for_chart.decode(encoding='UTF-8',errors='strict'),"owner":is_owner,"error":error})
     # resp = HttpResponse(data_for_chart, content_type="text/plain; charset=utf-8")
     # return resp
 

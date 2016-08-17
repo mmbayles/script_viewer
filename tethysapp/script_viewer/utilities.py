@@ -138,3 +138,5 @@ def Original_Checker(file_path,script):
 
     return {'script':response,
             'script_type':script}
+def csv_reader(file_path,script):
+    print 'hello'

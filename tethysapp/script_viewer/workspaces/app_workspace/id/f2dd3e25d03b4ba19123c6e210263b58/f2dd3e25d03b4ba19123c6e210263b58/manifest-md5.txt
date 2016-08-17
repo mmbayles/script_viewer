@@ -1,0 +1,4 @@
+data/resourcemap.xml   sha2:Pipn9QMtiuQs0kn3XTp6PUp1CBPk6Xdea21tiOfUtGk=
+data/resourcemetadata.xml   sha2:3SisvLHpJljhuTTSbaMflVZg646NsW1axEqhvkPyPVI=
+data/contents/frmgham2.csv   sha2:4HPOTGDTUfIBXFALW9+Jw6mas9/QulJeMadDdC1kkTE=
+data/contents/temperatures.csv   sha2:9M9HiKktvgcwFgDo5eF9D6+MiFlbYamdNVh1BprSWYo=

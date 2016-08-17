@@ -1,0 +1,3 @@
+data/resourcemap.xml   sha2:8xLf7IYGaYtAbrVnBY4bvmDL2eS2INivo5JkzZBL7Rk=
+data/resourcemetadata.xml   sha2:wb/qDUlLclzWMkyid57JRYlUB2E2a6oV3PPA5oqczAI=
+data/contents/GC2015_FlowTempPrecip_Lees_9-10-15.csv   sha2:hkI1sf2CX16RPGCMG0OA/TVqRSWZchIvKY0KUQF71D0=

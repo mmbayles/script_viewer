@@ -1,3 +1,0 @@
-data/resourcemap.xml   sha2:bEZk1h28uvy8eyLdBrZGFCn8RxCuFZRByAKNCyC5i3s=
-data/resourcemetadata.xml   sha2:bAOCk7Dr+VDW7ug/2BmLEDvkT78TRAVS5bIFu8JNk7k=
-data/contents/mapProject.json   sha2:3WRjZ+LfGLyTz8u0/rxQeyJHmXMUG9INV4Lv2sKz064=
