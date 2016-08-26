@@ -1,0 +1,12 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Other
+*.pyc
+*.py~
+tethysapp/script_viewer/workspaces/app_workspace/id
+build
+tethysapp_script_viewer.egg-info
