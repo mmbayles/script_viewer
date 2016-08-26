@@ -21,12 +21,16 @@ from django.views.decorators.cache import never_cache
 @login_required()
 @never_cache
 def home(request):
+    if not os.path.exists(utilities.get_workspace() + '/id'):
+        os.mkdir(utilities.get_workspace() + '/id')
     """
 
     Controller for the app home page.
     """
     context = {}
     return render(request, 'script_viewer/home.html', context)
+
+
 def chart_data(request, res_id, src):
     data_for_chart = {}
     error = False
@@ -100,17 +104,22 @@ def chart_data(request, res_id, src):
 
 
 def getOAuthHS(request):
-    hs_instance_name = "www"
-    client_id = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_KEY", None)
-    client_secret = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_SECRET", None)
+    hs = None
+    try:
+        hs_instance_name = "www"
+        client_id = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_KEY", None)
+        client_secret = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_SECRET", None)
 
-    # this line will throw out from django.core.exceptions.ObjectDoesNotExist if current user is not signed in via HydroShare OAuth
-    token = request.user.social_auth.get(provider='hydroshare').extra_data['token_dict']
-    hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)
-    auth = HydroShareAuthOAuth2(client_id, client_secret, token=token)
-    hs = HydroShare(auth=auth, hostname=hs_hostname)
+        # this line will throw out from django.core.exceptions.ObjectDoesNotExist if current user is not signed in via HydroShare OAuth
+        token = request.user.social_auth.get(provider='hydroshare').extra_data['token_dict']
+        hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)
+        auth = HydroShareAuthOAuth2(client_id, client_secret, token=token)
+        hs = HydroShare(auth=auth, hostname=hs_hostname)
+    except:
+        hs = HydroShare()
 
     return hs
+
 
 def save_file(request, res_id, file_name, src, save_type):
     script = request.POST.get('script')
