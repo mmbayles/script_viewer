@@ -1,0 +1,11 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Other
+*.pyc
+*.py~
+build
+tethysapp_script_viewer.egg-info
