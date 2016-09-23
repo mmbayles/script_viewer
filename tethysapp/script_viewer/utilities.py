@@ -16,6 +16,7 @@ import os
 import dateutil.parser
 from datetime import datetime
 import pandas as pd
+import controllers
 
 def get_app_base_uri(request):
     base_url = request.build_absolute_uri()
@@ -138,5 +139,47 @@ def Original_Checker(file_path,script):
 
     return {'script':response,
             'script_type':script}
-def csv_reader(file_path,script):
-    print 'hello'
+# def csv_reader(file_path,script):
+#     print 'hello'
+def error_report(text):
+    temp_dir = get_workspace()
+    temp_dir = temp_dir[:-24]
+    file_temp_name = temp_dir + '/error_report.txt'
+    file_temp = open(file_temp_name, 'a')
+    time = datetime.now()
+    time2 = time.strftime('%Y-%m-%d %H:%M')
+    file_temp.write(time2+": "+text+"\n")
+    file_temp.close()
+
+def viewer_counter(request):
+    temp_dir = get_workspace()
+    try:
+        hs = controllers.getOAuthHS(request)
+        user =  hs.getUserInfo()
+        user1 = user['username']
+        print user1
+    except:
+        user1 =""
+
+    if user1 != 'mbayles2':
+        temp_dir = temp_dir[:-24]
+
+        file_temp_name = temp_dir + '/view_counter.txt'
+        if not os.path.exists(temp_dir+"/view_counter.txt"):
+            file_temp = open(file_temp_name, 'a')
+            first = '1'
+            file_temp.write(first)
+            file_temp.close()
+        else:
+            file_temp = open(file_temp_name, 'r+')
+            content = file_temp.read()
+            number = int(content)
+            # time = datetime.now()
+            # time2 = time.strftime('%Y-%m-%d %H:%M')
+            number  = number +1
+            number  = str(number)
+            file_temp.seek(0)
+            file_temp.write(number)
+            file_temp.close()
+    else:
+        user1=''

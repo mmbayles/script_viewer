@@ -22,9 +22,13 @@ from django.views.decorators.cache import never_cache
 @never_cache
 def home(request):
     """
-
     Controller for the app home page.
     """
+    # temp_dir = utilities.get_workspace()
+    # print temp_dir
+    # temp_dir = temp_dir[:-24]
+    # print temp_dir
+    utilities.viewer_counter(request)
     context = {}
     return render(request, 'script_viewer/home.html', context)
 def chart_data(request, res_id, src):
@@ -35,11 +39,9 @@ def chart_data(request, res_id, src):
     print datetime.now()
     print "update"
     # Downloading all files types that work with app from hydroshare
-
     file_path = utilities.get_workspace() + '/id'
     root_dir = file_path + '/' + res_id
     try:
-
         shutil.rmtree(root_dir)
     except:
         nothing =None
@@ -52,7 +54,6 @@ def chart_data(request, res_id, src):
         for subdir, dirs, files in os.walk(data_dir):
             for file in files:
                 # if '.r' in file or '.R' in file or'.py' in file or '.m' in file or '.txt' in file or '.xml' in file:
-
                     data_file = data_dir + file
                     with open(data_file, 'r') as f:
                         # print f.read()
@@ -89,36 +90,27 @@ def chart_data(request, res_id, src):
         except:
             data_for_chart = "There was an error loading data for resource"+res_id
         print "end"
-
-
     return JsonResponse({"data":data_for_chart,"owner":is_owner,"error":error})
-
-
         # return JsonResponse({"data":data_for_chart.decode(encoding='UTF-8',errors='strict'),"owner":is_owner,"error":error})
     # resp = HttpResponse(data_for_chart, content_type="text/plain; charset=utf-8")
     # return resp
-
 
 def getOAuthHS(request):
     hs_instance_name = "www"
     client_id = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_KEY", None)
     client_secret = getattr(settings, "SOCIAL_AUTH_HYDROSHARE_SECRET", None)
-
     # this line will throw out from django.core.exceptions.ObjectDoesNotExist if current user is not signed in via HydroShare OAuth
     token = request.user.social_auth.get(provider='hydroshare').extra_data['token_dict']
     hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)
     auth = HydroShareAuthOAuth2(client_id, client_secret, token=token)
     hs = HydroShare(auth=auth, hostname=hs_hostname)
-
     return hs
 
 def save_file(request, res_id, file_name, src, save_type):
     script = request.POST.get('script')
-
     file_path = utilities.get_workspace() + '/id'
     root_dir = file_path + '/' + res_id
     data_dir = root_dir + '/' + res_id + '/data/contents/' + file_name
-
     print data_dir
     try:
         if save_type == 'save':
@@ -127,7 +119,6 @@ def save_file(request, res_id, file_name, src, save_type):
                 f.write(script)
             hs = getOAuthHS(request)
             hs.deleteResourceFile(res_id, file_name)
-
             # raw_input('PAUSED')
             hs.addResourceFile(res_id, data_dir)
         else:
@@ -135,14 +126,12 @@ def save_file(request, res_id, file_name, src, save_type):
                 f.write(script)
             hs = getOAuthHS(request)
             hs.addResourceFile(res_id, data_dir)
-
             # raw_input('PAUSED')
         shutil.rmtree(root_dir)
         file = {"File Uploaded": file_name}
     except:
         file = {"File not saved": file_name}
     return JsonResponse(file)
-
 
 def delete_file(request, res_id, file_name, src):
     try:
@@ -156,3 +145,24 @@ def delete_file(request, res_id, file_name, src):
     except:
         file = {'File not Deleted':file_name}
     return JsonResponse(file)
+
+def view_counter(request):
+    temp_dir = utilities.get_workspace()
+    file_path = temp_dir[:-24] + 'view_counter.txt'
+    file_temp = open(file_path, 'r')
+    content = file_temp.read()
+    return JsonResponse({"Number of Viewers":content})
+
+def error_report(request):
+    print os.path.realpath('controllers.py')
+    temp_dir = utilities.get_workspace()
+    temp_dir = temp_dir[:-24]
+    file_path = temp_dir + '/error_report.txt'
+    if not os.path.exists(temp_dir+"/error_report.txt"):
+        file_temp = open(file_path, 'a')
+        file_temp.close()
+        content = ''
+    else:
+        file_temp = open(file_path, 'r')
+        content = file_temp.read()
+    return JsonResponse({"Error Reports":content})

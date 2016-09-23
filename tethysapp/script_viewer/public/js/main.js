@@ -289,3 +289,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+$("#btn_instructions").click( function() {
+    var popupDiv = $('#instructions');
+    popupDiv.modal('show');
+})

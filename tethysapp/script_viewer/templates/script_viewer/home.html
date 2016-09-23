@@ -11,9 +11,7 @@
             <option value="cobalt">Cobalt</option>
             <option value="github">GitHub</option>
             <option value="terminal">Terminal</option>
-
         </select>
-
         <p></p>
         Font:
         <select id='font'>
@@ -25,7 +23,6 @@
             <option value="26pt">26 px</option>
             <option value="28pt">28 px</option>
         </select>
-
         <p></p>
         <!--Split:-->
         <!--<select id='split'>-->
@@ -37,7 +34,6 @@
             <!--<option value="26pt">26 px</option>-->
             <!--<option value="28pt">28 px</option>-->
         <!--</select>-->
-
         <!--<p></p>-->
     </div>
     <p></p>
@@ -52,7 +48,6 @@
     <ul id='list' class="tab"></ul>
 </div>
 <div id='content_tab'></div>
-
 <div class="modal fade" id="save_as" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -74,14 +69,12 @@
                             <option value=".m">.m</option>
                             <!--<option value=".txt">.txt</option>-->
                         </select>
-
                         <p></p>
                         <button class="btn btn-primary" id="change_unit" onclick="save_as()">Save</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-default" id="close-popup1" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -89,26 +82,21 @@
 </div>
 <!-- Modal  -->
 <!--<button id = 'hello'  type="button" class="btn btn-primary">Primary</button>-->
-
 <div class="modal fade" id="instructions" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Welcome to the Script Viewer</h4>
+                <h4 class="modal-title">Instructions</h4>
             </div>
             <div class="modal-body">
                 <div id="welcome-info2">
-                    <p>Instructions</p>
+                     <!--<h6>Instructions</h6>-->
                     <ol>
-
-                        <p>All files that automatically displayed</p>
-
-                        <p>Click the hamburger button in the top left to display more options</p>
-
-                        <p>Select the Script Viewer from the available list of webb apps</p>
+                        <p>All files are automatically displayed</p>
+                        <p>Click the hamburger button in the top left to display more viewing options</p>
+                        <!--<p>Select the Script Viewer from the available list of web apps</p>-->
                         <!--<a class="btn btn-default" href='http://bcc-hiswebclient.azurewebsites.net'>Go to CUAHSI HydroClient website</a>-->
-
                     </ol>
                 </div>
             </div>
@@ -138,14 +126,13 @@
                     </p>
                     <ol>
                         <h6>1. Go to the HydroShare page</h6>
-
                         <p>Search for the resource of interest</p>
+
                         <h6>2. Select the desired resource</h6>
+                        <p>Select the desired resource </p>
 
-                        <p>Select the deired resource </p>
                         <h6>3. Launch the Script Viewer</h6>
-
-                        <p>Select the Script Viewer from the available list of webb apps</p>
+                        <p>Select the Script Viewer from the available list of web apps</p>
                         <!--<a class="btn btn-default" href='http://bcc-hiswebclient.azurewebsites.net'>Go to CUAHSI HydroClient website</a>-->
                         <a class="btn btn-default" href='https://www.hydroshare.org/'>Go to HydroShare website</a>
                     </ol>
@@ -175,17 +162,15 @@
 </div>
 
 {% endblock %}
+{% block app_actions %}
+
+<button type="button" class="btn btn-default" id="btn_instructions" data-dismiss="modal">Instructions</button>
+{% endblock %}
 {% block scripts %}
-
-
 <!--<script src="{% static 'r_script_viewer/js/theme-twilight.js' %}"></script>-->
 <!--<script src="{% static 'r_script_viewer/js/mode-r.js' %}"></script>-->
 <!--<script src="{% static 'r_script_viewer/js/ace.js' %}"></script>-->
-
 <script src="{% static 'script_viewer/js/src-min/ace.js'%}" type="text/javascript" charset="utf-8"></script>
-
-
-
 <!--<script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>-->
 {{ block.super }}
 

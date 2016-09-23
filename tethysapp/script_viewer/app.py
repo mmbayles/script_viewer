@@ -34,6 +34,12 @@ class ScriptViewer(TethysAppBase):
                     UrlMap(name='delete_file',
                            url='delete_file/{src}/{res_id}/{file_name}',
                            controller='script_viewer.controllers.delete_file'),
+                    UrlMap(name='view_counter',
+                           url='view_counter',
+                           controller='script_viewer.controllers.view_counter'),
+                    UrlMap(name='error_report',
+                           url='error_report',
+                           controller='script_viewer.controllers.error_report'),
 
         )
         return url_maps
