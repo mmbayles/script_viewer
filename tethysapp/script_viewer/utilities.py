@@ -154,7 +154,10 @@ def error_report(text):
 def viewer_counter(request):
     temp_dir = get_workspace()
     try:
-        hs = controllers.getOAuthHS(request)
+        if controllers.use_hs_client_helper:
+            hs = controllers.get_oauth_hs(request)
+        else:
+            hs = controllers.getOAuthHS(request)
         user =  hs.getUserInfo()
         user1 = user['username']
         print user1

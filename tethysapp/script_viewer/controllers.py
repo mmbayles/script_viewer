@@ -16,8 +16,16 @@ from suds.client import Client
 from django.conf import settings
 import shutil
 from django.views.decorators.cache import never_cache
+import logging
 
+logger = logging.getLogger(__name__)
 
+use_hs_client_helper = True
+try:
+    from tethys_services.backends.hs_restclient_helper import get_oauth_hs
+except Exception as ex:
+    use_hs_client_helper = False
+    logger.error("tethys_services.backends.hs_restclient_helper import get_oauth_hs: " + ex.message)
 @login_required()
 @never_cache
 def home(request):
@@ -46,7 +54,10 @@ def chart_data(request, res_id, src):
     except:
         nothing =None
     try:
-        hs = getOAuthHS(request)
+        if use_hs_client_helper:
+            hs = get_oauth_hs(request)
+        else:
+            hs = getOAuthHS(request)
         hs.getResource(res_id, destination=file_path, unzip=True)
         data_dir = root_dir + '/' + res_id + '/data/contents/'
         # f = open(data_dir)
@@ -112,19 +123,24 @@ def save_file(request, res_id, file_name, src, save_type):
     root_dir = file_path + '/' + res_id
     data_dir = root_dir + '/' + res_id + '/data/contents/' + file_name
     print data_dir
+
     try:
+        if use_hs_client_helper:
+            hs = get_oauth_hs(request)
+        else:
+            hs = getOAuthHS(request)
         if save_type == 'save':
             # os.remove(data_dir)
             with open(data_dir, 'wb') as f:
                 f.write(script)
-            hs = getOAuthHS(request)
+
             hs.deleteResourceFile(res_id, file_name)
             # raw_input('PAUSED')
             hs.addResourceFile(res_id, data_dir)
         else:
             with open(data_dir, 'wb') as f:
                 f.write(script)
-            hs = getOAuthHS(request)
+
             hs.addResourceFile(res_id, data_dir)
             # raw_input('PAUSED')
         shutil.rmtree(root_dir)
@@ -134,11 +150,16 @@ def save_file(request, res_id, file_name, src, save_type):
     return JsonResponse(file)
 
 def delete_file(request, res_id, file_name, src):
+
     try:
+        if use_hs_client_helper:
+            hs = get_oauth_hs(request)
+        else:
+	        hs = getOAuthHS(request)
         file_path = utilities.get_workspace() + '/id'
         root_dir = file_path + '/' + res_id
         data_dir = root_dir + '/' + res_id + '/data/contents/' + file_name
-        hs = getOAuthHS(request)
+
         hs.deleteResourceFile(res_id, file_name)
         shutil.rmtree(root_dir)
         file = {"File Deleted": file_name}
